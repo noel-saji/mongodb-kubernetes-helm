@@ -1,5 +1,6 @@
 # Scripts
 kubernetes/apply-all.ps1
+git-push.ps1
 
 
 # TLS certificates
