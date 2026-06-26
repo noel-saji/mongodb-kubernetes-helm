@@ -1,0 +1,7 @@
+# Scripts
+kubernetes/apply-all.ps1
+
+
+# TLS certificates
+*.pem
+*.key
