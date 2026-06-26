@@ -1,56 +1,100 @@
-# MongoDB Dashboard - Local Domain Setup
+# MongoDB on Kubernetes with Helm
 
-## Register `mongodbdashboard.com` in Windows hosts file
+A Kubernetes setup for MongoDB and Mongo Express UI, with both raw manifests and a Helm chart.
 
-Add this entry to `C:\Windows\System32\drivers\etc\hosts`:
-
-```
-127.0.0.1   mongodbdashboard.com
-```
-
-## Open hosts file in Notepad as Administrator
-
-Run this command in PowerShell or Run dialog (Win + R):
-
-```powershell
-Start-Process notepad "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
-```
-
-Or from the Start menu:
-1. Search for **Notepad**
-2. Right-click → **Run as administrator**
-3. Open file: `C:\Windows\System32\drivers\etc\hosts`
-
-## Add the entry
-
-At the bottom of the hosts file, add:
+## Project Structure
 
 ```
-127.0.0.1   mongodbdashboard.com
+mongoDB/
+├── kubernetes/          # Raw Kubernetes manifests
+│   ├── mongo.yaml               # MongoDB Deployment + Service
+│   ├── mongo-express.yaml       # Mongo Express Deployment + Service
+│   ├── mongo-configmap.yaml     # MongoDB connection URL
+│   ├── mongo-secrets.yaml       # MongoDB credentials (base64)
+│   └── mongo-pvc.yaml           # PersistentVolumeClaim
+└── helm/                # Helm chart
+    ├── Chart.yaml
+    ├── values.yaml
+    └── templates/
+        ├── _helpers.tpl
+        ├── secret.yaml
+        ├── configmap.yaml
+        ├── pvc.yaml
+        ├── mongo-deployment.yaml
+        ├── mongo-service.yaml
+        ├── mongo-express-deployment.yaml
+        └── mongo-express-service.yaml
 ```
 
-Save the file (`Ctrl + S`), then flush DNS:
+## Prerequisites
 
-```powershell
-ipconfig /flushdns
+- [Minikube](https://minikube.sigs.k8s.io/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [Helm](https://helm.sh/)
+
+## Option 1 — Deploy with Helm
+
+**Create the namespace:**
+```bash
+kubectl create namespace mongo
 ```
 
-## Verify
-
-```powershell
-curl.exe -I http://mongodbdashboard.com
+**Install the chart:**
+```bash
+helm install mongodb ./helm -n mongo
 ```
 
-## Kubernetes Namespace
+**Check status:**
+```bash
+helm status mongodb -n mongo
+kubectl get all -n mongo
+```
 
-Switch to the mongo namespace permanently:
+**Upgrade after changes:**
+```bash
+helm upgrade mongodb ./helm -n mongo
+```
 
-```powershell
+**Uninstall:**
+```bash
+helm uninstall mongodb -n mongo
+```
+
+## Option 2 — Deploy with kubectl
+
+```bash
+kubectl create namespace mongo
+kubectl apply -f kubernetes/ -n mongo
+```
+
+## Access Mongo Express UI
+
+```bash
+minikube service mongo-express-service -n mongo
+```
+
+Or get the Minikube IP and open `http://<minikube-ip>:30000` in your browser.
+
+Default credentials: `admin` / `password`
+
+## Useful Commands
+
+```bash
+# Watch all resources
+kubectl get all -n mongo -w
+
+# Check initContainer logs (MongoDB readiness wait)
+kubectl logs <mongo-express-pod> -n mongo -c wait-for-mongodb
+
+# Check MongoDB logs
+kubectl logs <mongodb-pod> -n mongo
+
+# Switch to mongo namespace permanently
 kubectl config set-context --current --namespace=mongo
 ```
 
-Or view resources in mongo namespace without switching:
+## Notes
 
-```powershell
-kubectl get all -n mongo
-```
+- MongoDB data is persisted via a PersistentVolumeClaim (`mongodb-pvc`)
+- Mongo Express waits for MongoDB to be ready using an initContainer before starting
+- Default StorageClass on Minikube is `standard` (hostpath provisioner)
