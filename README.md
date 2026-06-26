@@ -75,7 +75,7 @@ minikube service mongo-express-service -n mongo
 
 Or get the Minikube IP and open `http://<minikube-ip>:30000` in your browser.
 
-Default credentials: `admin` / `password`
+Default credentials for Mongo Express UI: `admin` / `pass`
 
 ## Useful Commands
 
@@ -98,4 +98,6 @@ kubectl config set-context --current --namespace=mongo
 - MongoDB data is persisted via a PersistentVolumeClaim (`mongodb-pvc`)
 - Mongo Express waits for MongoDB to be ready using an initContainer before starting
 - Default StorageClass on Minikube is `standard` (hostpath provisioner)
-- Credentials (`admin`/`password`) are committed intentionally — this is a testing setup only. Do not use these in production.
+- Credentials are committed intentionally — this is a testing setup only. Do not use these in production.
+  - MongoDB: `admin` / `password`
+  - Mongo Express UI: `admin` / `pass`
