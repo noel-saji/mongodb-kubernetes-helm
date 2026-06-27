@@ -2,7 +2,7 @@ namespace: mongo
 
 mongodb:
   image: mongo
-  replicas: 1
+  replicas: 2
   port: 27017
   credentials:
     # base64-encoded values (admin / password)
