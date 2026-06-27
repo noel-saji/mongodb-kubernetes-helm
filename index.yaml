@@ -3,8 +3,18 @@ entries:
   mongodb:
   - apiVersion: v2
     appVersion: latest
-    created: "2026-06-27T12:08:04.050556249+04:00"
-    description: A Helm chart for MongoDB(2 pods) with Mongo Express UI
+    created: "2026-06-27T12:52:37.918526416+04:00"
+    description: A Helm chart for MongoDB with Mongo Express UI
+    digest: 606e481c2691604477fa40b4eaec0dbd9032671872e2f164efc02ea3f1e0cbdd
+    name: mongodb
+    type: application
+    urls:
+    - mongodb-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: latest
+    created: "2026-06-27T12:52:37.912312136+04:00"
+    description: A Helm chart for MongoDB with Mongo Express UI
     digest: 3af1c4ad85a8af5b280e478d94b5e80fc56b1fc83523548dbf7728d225281204
     name: mongodb
     type: application
@@ -13,7 +23,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: latest
-    created: "2026-06-27T12:08:04.047456644+04:00"
+    created: "2026-06-27T12:52:37.904821999+04:00"
     description: A Helm chart for MongoDB with Mongo Express UI
     digest: ee62f8492ecc3cb3b5f3bc090033334358d49e93ffe86ec7480cfdb00a669b7d
     name: mongodb
@@ -21,4 +31,4 @@ entries:
     urls:
     - mongodb-0.1.1.tgz
     version: 0.1.1
-generated: "2026-06-27T12:08:04.042410035+04:00"
+generated: "2026-06-27T12:52:37.894525141+04:00"
