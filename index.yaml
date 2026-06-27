@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  mongodb:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2026-06-27T11:31:35.767390071+04:00"
+    description: A Helm chart for MongoDB with Mongo Express UI
+    digest: 5d26b3f02bdb246ed962012285e9ef86ab78fadb9f9af23ea8a8e65778fafee5
+    name: mongodb
+    type: application
+    urls:
+    - mongodb-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-06-27T11:31:35.761848803+04:00"
