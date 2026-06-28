@@ -1,5 +1,11 @@
 # MongoDB on Kubernetes with Helm
 
+<p align="center">
+  <img src="images/kubernetes.png" alt="Kubernetes" height="80"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="images/helm.png" alt="Helm" height="80"/>
+</p>
+
 A Kubernetes setup for MongoDB and Mongo Express UI, with both raw manifests and a Helm chart.
 
 ## Project Structure
@@ -33,6 +39,22 @@ mongoDB/
 - [Helm](https://helm.sh/)
 
 ## Option 1 — Deploy with Helm
+
+### From Helm Repository
+
+**Add the repo:**
+```bash
+helm repo add mongodb-k8s https://noel-saji.github.io/mongodb-kubernetes-helm/
+helm repo update
+```
+
+**Install the chart:**
+```bash
+kubectl create namespace mongo
+helm install mongodb mongodb-k8s/mongodb -n mongo
+```
+
+### From Local Chart
 
 **Create the namespace:**
 ```bash
